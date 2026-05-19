@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: steuritos
+  namespace: steuritos
+  labels:
+    app: steuritos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: steuritos
+  template:
+    metadata:
+      labels:
+        app: steuritos
+    spec:
+      containers:
+        - name: steuritos
+          image: ghcr.io/nielsreloeraw/steuritos:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATA_DIR
+              value: /data
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: steuritos-data

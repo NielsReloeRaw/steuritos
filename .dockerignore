@@ -1,0 +1,5 @@
+backend/node_modules
+backend/public
+frontend/node_modules
+k8s
+*.md
